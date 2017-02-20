@@ -1,4 +1,4 @@
-#Buzzwords (in progress)
+#Buzzwords
 
 ###A demo flash card app using React 
 
@@ -21,9 +21,11 @@
 ###**Step 2**
 This app uses Firebase for the persisted data.
 
-Create a new Firebase database at [https://firebase.google.com/](https://firebase.google.com/)
+Create a new Firebase database at [https://firebase.google.com/](https://firebase.google.com/).
 
-Add your Firebase config object to `src/db.js`
+Add your Firebase config object to `src/db.js`.
+
+Change the Firebase rules to `true` for **".read"** and **".write"** properties in the **Rules** tab.
 
 ###**Step 3**
 
@@ -34,6 +36,15 @@ Add your Firebase config object to `src/db.js`
 `npm start`
 
 Open `localhost:3030` in your browser.
+
+This app does not cover some important concepts, such as 
+- testing
+- type checking
+- authentication
+- read / write privileges
+- pagination
+
+
 
 ## Screenshot
 
