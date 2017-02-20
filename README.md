@@ -23,9 +23,10 @@ This app uses Firebase for the persisted data.
 
 Create a new Firebase database at [https://firebase.google.com/](https://firebase.google.com/).
 
+In the Firebase Console, change the Firebase rules to `true` for **".read"** and **".write"** properties in the **Rules** tab. 
+
 Add your Firebase config object to `src/db.js`.
 
-Change the Firebase rules to `true` for **".read"** and **".write"** properties in the **Rules** tab.
 
 ###**Step 3**
 
@@ -37,14 +38,11 @@ Change the Firebase rules to `true` for **".read"** and **".write"** properties 
 
 Open `localhost:3030` in your browser.
 
-This app does not cover some important concepts, such as 
+Please note that this app does not cover some important concepts, such as 
 - testing
-- type checking
 - authentication
 - read / write privileges
 - pagination
-
-
 
 ## Screenshot
 

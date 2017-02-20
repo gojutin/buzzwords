@@ -1,13 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Card, CardBlock, CardTitle, CardText } from 'reactstrap';
 
-export default class extends Component {
+export default class BuzzwordCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showDef: false,
     };
   }
+  static propTypes = {
+    term: PropTypes.string.isRequired,
+    def: PropTypes.string.isRequired,
+  }
+
   handleDelete = () => {
     const { term, id, handleDelete } = this.props;
     console.log("Clicked delete");
@@ -43,4 +48,3 @@ export default class extends Component {
     );
   }
 }
-
