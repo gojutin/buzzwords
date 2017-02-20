@@ -2,11 +2,11 @@
 
 ###A demo flash card app using React bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-### This app was part of an 'INTRO TO REACT' series by the Long Island JavaScript Group Meetup.
+#### This app is a demo for the `Intro to React` series by the [Long Island JavaScript Group Meetup](https://www.meetup.com/long-island-javascript-group/).
 
 [Visit our Meetup page](https://www.meetup.com/long-island-javascript-group/)
 
-[View the slides](http://bit.ly/2l1gbwv)
+[View the 'Intro to React' slides](http://bit.ly/2l1gbwv)
 
 ####Main libraries used in this project:
 
@@ -27,7 +27,7 @@ This app uses Firebase for the persisted data.
 
 Create a new Firebase database at [https://firebase.google.com/](https://firebase.google.com/).
 
-In the Firebase Console, change the Firebase rules to `true` for **".read"** and **".write"** properties in the **Rules** tab. 
+In the Firebase Console, change the Firebase rules to `true` for the **".read"** and **".write"** properties in the **Rules** tab of your database. ***This is not recommended in a production application***
 
 Add your Firebase config object to `src/db.js`.
 
