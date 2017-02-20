@@ -1,8 +1,12 @@
 #Buzzwords
 
-###A demo flash card app using React 
+###A demo flash card app using React bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-####This project is a single-page application that was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+### This app was part of an 'INTRO TO REACT' series by the Long Island JavaScript Group Meetup.
+
+[Visit our Meetup page](https://www.meetup.com/long-island-javascript-group/)
+
+[View the slides](http://bit.ly/2l1gbwv)
 
 ####Main libraries used in this project:
 
