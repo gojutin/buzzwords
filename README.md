@@ -14,7 +14,7 @@
 ------------ | -------------
 [React](https://facebook.github.io/react/) | Manages the view layer and responsible for all DOM manipulation
 [Reactstrap](https://reactstrap.github.io/)  | Provides styles Bootstrap 4 components
-[Firebase](https://firebase.google.com/) | Realtime database used to store the persistant data.
+[Firebase](https://firebase.google.com/) | Realtime NoSQL database used to store the persistant data.
 
 <h2 name="getting-started">Getting Started</h2>
 
@@ -23,14 +23,12 @@
 `git clone https://github.com/gojutin/buzzwords `
 
 ###**Step 2**
-This app uses Firebase for the persisted data.
 
 Create a new Firebase database at [https://firebase.google.com/](https://firebase.google.com/).
 
 In the Firebase Console, change the Firebase rules to `true` for the **".read"** and **".write"** properties in the **Rules** tab of your database. ***This is not recommended in a production application***
 
 Add your Firebase config object to `src/db.js`.
-
 
 ###**Step 3**
 
