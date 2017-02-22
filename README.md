@@ -4,9 +4,6 @@
 
 #### This app is a demo for the `Intro to React` series by the [Long Island JavaScript Group Meetup](https://www.meetup.com/long-island-javascript-group/).
 
-[Visit our Meetup page](https://www.meetup.com/long-island-javascript-group/)
-
-[View the 'Intro to React' slides](http://bit.ly/2l1gbwv)
 
 ####Main libraries used in this project:
 
