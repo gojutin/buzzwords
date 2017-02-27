@@ -10,51 +10,68 @@ export default class Buzzwords extends Component {
     super(props);
     this.state = {
       buzzwords: [],
+      loaded: false,
     }
   }
+
   componentDidMount() {
     const db = firebase.database();
-    db.ref('buzzwords').orderByChild("term").on('value', snap => {
-      var buzzwordsArray = [];
+    db.ref('buzzwords').orderByChild("buzzword").on('value', snap => {
+      let buzzwordsArray = [];
       snap.forEach(buzzword => {
         buzzwordsArray.push({
           id: buzzword.key,
-          term: buzzword.val().term,
+          buzzword: buzzword.val().buzzword,
           definition: buzzword.val().definition,
-        })
-      })
+        });
+      });
       this.setState({
         buzzwords: buzzwordsArray,
+        loaded: true,
       });
-    })
+    });
   }
-  deleteBuzzword(id, term) {
-    if (window.confirm(`Are you sure you want to delete ${term}?`)) {
+
+  deleteBuzzword(id, buzzword) {
+    if (window.confirm(`Are you sure you want to delete ${buzzword}?`)) {
       const db = firebase.database();
       db.ref('buzzwords').child(id).remove();
     }
   }
+
   render() {
-    const renderBuzzword = this.state.buzzwords.map(x => {
+
+    const { buzzwords, loaded } = this.state;
+
+    const renderBuzzword = buzzwords.map(buzzword => {
       return (
-        <Col xs="12" sm="6" key={x.id} style={{ marginTop: 10 + 'px' }}>
+        <Col xs="12" sm="6" key={buzzword.id} style={{ marginTop: 10 + 'px' }}>
           <BuzzwordCard
-            term={x.term}
-            def={x.definition}
-            id={x.id}
+            buzzword={buzzword.buzzword}
+            definition={buzzword.definition}
+            id={buzzword.id}
             handleDelete={this.deleteBuzzword}
           />
         </Col>
       );
-    })
+    });
+
     return (
       <div className="text-center">
-        {this.state.buzzwords.length 
-          ?  <Row> {renderBuzzword} </Row>
+
+        {loaded
+          ? <Row> {renderBuzzword} </Row>
           : <WobblySpinner />
         }
 
+        {loaded && buzzwords.length === 0
+          &&
+          <div className="text-primary">
+            <i className="fa fa-arrow-up fa-3x" />
+            <h2>Start here</h2>
+          </div>
+        }
       </div>
     );
-  }
-}
+  };
+};

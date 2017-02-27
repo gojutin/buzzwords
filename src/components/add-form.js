@@ -1,78 +1,94 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
-import { Form, FormGroup, Input, Button, Modal, ModalBody, ModalFooter } from 'reactstrap';
+import { 
+  Form, 
+  FormGroup, 
+  Input, 
+  Button, 
+  Modal, 
+  ModalBody, 
+  ModalFooter 
+} from 'reactstrap';
 
 export default class AddForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      def: '',
-      term: '',
-      error: '',
+      buzzword: '',
+      definition: '',
+      errorMessage: '',
       modal: false,
     };
-    this.toggle = this.toggle.bind(this);
-  }
+  };
 
   handleSubmit = (event) => {
-    if (this.state.def && this.state.term && !this.state.error) {
-      event.preventDefault();
-      const db = firebase.database();
-      db.ref('buzzwords').push({
-        term: this.state.term,
-        definition: this.state.def,
-      })
-        .then(() => {
-          this.clearForm();
-          this.toggle();
-        })
-        .catch(err => {
-          this.clearForm();
-          this.toggle();
-          this.setState({
-            error: err,
-          });
-        })
-    } else {
+    const { buzzword, definition, errorMessage } = this.state;
+    event.preventDefault();
+    if (!buzzword || !definition) {
       this.setState({
-        error: "Both values are required."
-      })
+        errorMessage: "Both values are required."
+      });
+      return;
     }
+    
+    if (errorMessage) {
+      return;
+    }
+    // database logic
+    const db = firebase.database();
+    db.ref('buzzwords').push({
+      buzzword,
+      definition,
+    })
+    .then(() => {
+      this.clearForm();
+      this.toggle();
+    })
+    .catch(error => {
+      this.clearForm();
+      this.toggle();
+      this.setState({
+        errorMessage: error,
+      });
+    });
   }
 
-  toggle() {
+  toggle = () => {
     this.setState(prevState => ({
       modal: !prevState.modal
     }))
   }
 
-  clearForm() {
+  clearForm = () => {
     this.setState({
-      term: '',
-      def: '',
-      error: '',
+      buzzword: '',
+      definition: '',
+      errorMessage: '',
     });
   }
 
   handleChange = (event) => {
     if (event.target.value.length >= 140) {
       this.setState({
-        error: "You have reached the 140 character limit",
+        errorMessage: "You have reached the 140 character limit",
       });
     } else {
       this.setState({
         [`${event.target.name}`]: event.target.value,
-        error: '',
+        errorMessage: '',
       })
     }
   }
 
   render() {
+
+    const { buzzword, definition, errorMessage, modal } = this.state;
+
     return (
       <div className="text-center addWord">
         <i className="fa fa-plus-square-o fa-4x text-success" onClick={this.toggle} />
         <Modal
-          isOpen={this.state.modal}
+          isOpen={modal}
           toggle={this.toggle}
         >
           <ModalBody>
@@ -81,22 +97,23 @@ export default class AddForm extends Component {
                 <Input
                   type="text"
                   onChange={this.handleChange}
-                  name="term"
-                  value={this.state.term}
-                  placeholder="Add term..."
+                  name="buzzword"
+                  value={buzzword}
+                  placeholder="Add buzzword.."
                 />
               </FormGroup>
               <FormGroup>
                 <Input
                   onChange={this.handleChange}
                   type="textarea"
-                  name="def"
-                  value={this.state.def}
-                  placeholder="Add definition..."
+                  name="definition"
+                  value={definition}
+                  placeholder="Add definition.."
                 />
-                {this.state.error && <p className="text-danger">{this.state.error}</p>}
-              </FormGroup>
-              <FormGroup>
+
+                {errorMessage 
+                  && <p className="text-danger">{errorMessage}</p>
+                }
 
               </FormGroup>
             </Form>
@@ -105,10 +122,12 @@ export default class AddForm extends Component {
             <Button
               onClick={this.handleSubmit}
               color="primary"
-              disabled={this.state.error || !this.state.term ? true : false}
-            >
-              Add New Buzzword
-                </Button>
+              disabled={errorMessage
+               || !buzzword
+               || !definition
+               ? true : false }
+            > Add New Buzzword
+          </Button>
             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
           </ModalFooter>
         </Modal>

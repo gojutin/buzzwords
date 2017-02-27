@@ -11,6 +11,7 @@
 ------------ | -------------
 [React](https://facebook.github.io/react/) | Manages the view layer and responsible for all DOM manipulation
 [Reactstrap](https://reactstrap.github.io/)  | Provides styles Bootstrap 4 components
+[Classnames](https://github.com/JedWatson/classnames) | A simple javascript utility for conditionally joining classNames together 
 [Firebase](https://firebase.google.com/) | Realtime NoSQL database used to store the persistant data.
 
 <h2 name="getting-started">Getting Started</h2>

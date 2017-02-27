@@ -1,48 +1,71 @@
 import React, { Component, PropTypes } from 'react';
 import { Card, CardBlock, CardTitle, CardText } from 'reactstrap';
+import classNames from 'classnames';
+
+import CardIcon from './card-icon';
 
 export default class BuzzwordCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showDef: false,
+      showDefinition: false,
     };
   }
   static propTypes = {
-    term: PropTypes.string.isRequired,
-    def: PropTypes.string.isRequired,
+    buzzword: PropTypes.string.isRequired,
+    definition: PropTypes.string.isRequired,
   }
 
   handleDelete = () => {
-    const { term, id, handleDelete } = this.props;
-    console.log("Clicked delete");
-    handleDelete(id, term);
+    const { buzzword, id, handleDelete } = this.props;
+    handleDelete(id, buzzword);
   }
-  showDef = () => {
+
+  showDefinition = () => {
     this.setState(prevState => ({
-      showDef: !prevState.showDef
+      showDefinition: !prevState.showDefinition,
     }));
   }
 
   render() {
-    const { term, def } = this.props;
+    const { buzzword, definition } = this.props;
+    const { showDefinition } = this.state;
+
+    const eyeStyle = classNames({
+      'fa-eye-slash': showDefinition,
+      'fa-eye': !showDefinition,
+    });
+
+    const eyeColor = classNames({
+      'warning': showDefinition,
+      'primary': !showDefinition,
+    });
+
     return (
       <Card outline color="primary" style={{ backgroundColor: '#f9f9f9' }}>
         <CardBlock >
-          <i
-            className="fa fa-trash fa-2x float-right"
-            style={{ color: 'gray' }}
-            onClick={this.handleDelete}
+          <CardIcon 
+            icon="fa-trash"
+            color="gray"
+            hoverColor="black"
+            click={this.handleDelete}
           />
-          <i
-            className={this.state.showDef
-              ? "fa fa-eye-slash fa-2x float-right"
-              : "fa fa-eye fa-2x float-right"}
-            style={{ color: 'gray' }}
-            onClick={this.showDef}
+          <CardIcon 
+            icon={eyeStyle}
+            faColor={eyeColor}
+            click={this.showDefinition} 
           />
-          <CardTitle onClick={this.showDef}>{term}</CardTitle>
-          {this.state.showDef && <CardText style={{ marginTop: 20 + 'px' }}><hr />{def}</CardText>}
+
+          <CardTitle onClick={ this.showDefinition }> { buzzword } </CardTitle>
+
+          { showDefinition
+            && 
+            <div>
+              <hr />
+              <CardText style={{ marginTop: 20 + 'px' }}> { definition } </CardText>
+            </div>
+          }
+
         </CardBlock>
       </Card>
     );
