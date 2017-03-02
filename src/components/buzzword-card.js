@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { Card, CardBlock, CardTitle, CardText } from 'reactstrap';
-import classNames from 'classnames';
 
 import CardIcon from './card-icon';
 
@@ -11,6 +10,7 @@ export default class BuzzwordCard extends Component {
       showDefinition: false,
     };
   }
+
   static propTypes = {
     buzzword: PropTypes.string.isRequired,
     definition: PropTypes.string.isRequired,
@@ -31,15 +31,11 @@ export default class BuzzwordCard extends Component {
     const { buzzword, definition } = this.props;
     const { showDefinition } = this.state;
 
-    const eyeStyle = classNames({
-      'fa-eye-slash': showDefinition,
-      'fa-eye': !showDefinition,
-    });
+    const eyeStyle = showDefinition ?
+      'fa-eye-slash' : 'fa-eye';
 
-    const eyeColor = classNames({
-      'warning': showDefinition,
-      'primary': !showDefinition,
-    });
+    const eyeColor = showDefinition ?
+      'warning' : 'primary';
 
     return (
       <Card outline color="primary" style={{ backgroundColor: '#f9f9f9' }}>

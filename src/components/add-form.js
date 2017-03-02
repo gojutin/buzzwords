@@ -17,7 +17,7 @@ export default class AddForm extends Component {
       buzzword: '',
       definition: '',
       errorMessage: '',
-      modal: false,
+      modalOpen: false,
     };
   };
 
@@ -42,20 +42,20 @@ export default class AddForm extends Component {
     })
     .then(() => {
       this.clearForm();
-      this.toggle();
+      this.toggleModal();
     })
     .catch(error => {
       this.clearForm();
-      this.toggle();
+      this.toggleModal();
       this.setState({
         errorMessage: error,
       });
     });
   }
 
-  toggle = () => {
+  toggleModal = () => {
     this.setState(prevState => ({
-      modal: !prevState.modal
+      modalOpen: !prevState.modalOpen
     }))
   }
 
@@ -82,14 +82,14 @@ export default class AddForm extends Component {
 
   render() {
 
-    const { buzzword, definition, errorMessage, modal } = this.state;
+    const { buzzword, definition, errorMessage, modalOpen } = this.state;
 
     return (
       <div className="text-center addWord">
-        <i className="fa fa-plus-square-o fa-4x text-success" onClick={this.toggle} />
+        <i className="fa fa-plus-square-o fa-4x text-success" onClick={this.toggleModal} />
         <Modal
-          isOpen={modal}
-          toggle={this.toggle}
+          isOpen={modalOpen}
+          toggle={this.toggleModal}
         >
           <ModalBody>
             <Form onSubmit={this.handleSubmit}>
@@ -128,7 +128,7 @@ export default class AddForm extends Component {
                ? true : false }
             > Add New Buzzword
           </Button>
-            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+            <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
           </ModalFooter>
         </Modal>
       </div>

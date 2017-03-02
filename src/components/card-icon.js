@@ -6,6 +6,7 @@ export default class CardIcon extends Component {
     super(props);
     this.state = { hover: false };
   }
+
   handleHover = () => {
     this.setState((prevState) => ({
       hover: !prevState.hover 
