@@ -11,11 +11,6 @@ export default class BuzzwordCard extends Component {
     };
   }
 
-  static propTypes = {
-    buzzword: PropTypes.string.isRequired,
-    definition: PropTypes.string.isRequired,
-  }
-
   handleDelete = () => {
     const { buzzword, id, handleDelete } = this.props;
     handleDelete(id, buzzword);
@@ -67,3 +62,10 @@ export default class BuzzwordCard extends Component {
     );
   }
 }
+
+BuzzwordCard.propTypes = {
+  buzzword: PropTypes.string.isRequired,
+  definition: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  handleDelete: PropTypes.func.isRequired,
+};

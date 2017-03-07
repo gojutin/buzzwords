@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 
 export default class CardIcon extends Component {
@@ -39,6 +39,12 @@ export default class CardIcon extends Component {
   }
 } 
 
+CardIcon.propTypes = {
+  icon: PropTypes.string.isRequired,
+  color: PropTypes.string,
+  hoverColor: PropTypes.string,
+  click: PropTypes.func.isRequired,
+};
 
  
 
