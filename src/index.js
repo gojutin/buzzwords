@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './db';
 import './styles.css';
+
 import App from './containers/app-container';
 
 // Redux

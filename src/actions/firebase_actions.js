@@ -3,20 +3,9 @@ import { FETCH_DATA, DATA_LOADED, TOGGLE_MODAL } from './types';
 
 const db = firebase.database();
 
-function testPromise () {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => { 
-      console.log('Timeout finished'); 
-      resolve(true);
-    }, 2000);
-  });
-}
-
 export const fetchData = () => {
   return dispatch => {
-    testPromise()
     db.ref('buzzwords').orderByChild("buzzword").on('value', snap => {
-      console.log('In Fetch Data Call');
       let buzzwordsArray = [];
       snap.forEach(buzzword => {
         buzzwordsArray.push({
@@ -25,7 +14,6 @@ export const fetchData = () => {
           definition: buzzword.val().definition,
         });
       });
-      console.log('After Fetch Data Call');
         dispatch({
           type: FETCH_DATA,
           payload: buzzwordsArray,
