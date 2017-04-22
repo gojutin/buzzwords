@@ -1,137 +1,72 @@
-import React, { Component } from 'react';
-import firebase from 'firebase';
-import { 
-  Form, 
-  FormGroup, 
-  Input, 
-  Button, 
-  Modal, 
-  ModalBody, 
-  ModalFooter 
-} from 'reactstrap';
+import React from 'react';
+import { reduxForm, Field } from 'redux-form';
+import { Form, FormGroup, Input, Button, Modal, ModalBody, ModalFooter } from 'reactstrap';
 
-export default class AddForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      buzzword: '',
-      definition: '',
-      errorMessage: '',
-      modalOpen: false,
-    };
-  };
+const renderField = ({ input, type, name, placeholder, 
+    meta: { touched, error } }) => (
+    <div>
+      <Input
+        {...input}
+        type={type}
+        name={name}
+        placeholder={placeholder}
+      />
+      {touched && ((error && <p className="text-danger">{error}</p>))}
+    </div>
+  );
 
-  handleSubmit = (event) => {
-    const { buzzword, definition, errorMessage } = this.state;
-    event.preventDefault();
-    if (!buzzword || !definition) {
-      this.setState({
-        errorMessage: "Both values are required."
-      });
-      return;
-    }
-    
-    if (errorMessage) {
-      return;
-    }
-    // database logic
-    const db = firebase.database();
-    db.ref('buzzwords').push({
-      buzzword,
-      definition,
-    })
-    .then(() => {
-      this.clearForm();
-      this.toggleModal();
-    })
-    .catch(error => {
-      this.clearForm();
-      this.toggleModal();
-      this.setState({
-        errorMessage: error,
-      });
-    });
-  }
+// Validation
+const required = value => value ? undefined : 'This is a required field.'
+const lengthLimit = value => value.length < 140 ? undefined : 'You have reached the 140 character limit.'
 
-  toggleModal = () => {
-    this.setState(prevState => ({
-      modalOpen: !prevState.modalOpen
-    }))
-  }
+let AddForm = ({ handleSubmit, toggleModal, modalOpen } ) => 
+    <div className="text-center">
+      <i className="fa fa-plus-square-o fa-4x text-success" onClick={toggleModal} />
+      <Modal
+        isOpen={modalOpen}
+        toggle={toggleModal}
+      >
+      <Form onSubmit={handleSubmit}>
+        <ModalBody>
+            <FormGroup>
+              <Field
+                type="text"
+                name="buzzword"
+                placeholder="Add buzzword.."
+                component={renderField}
+                validate={[required, lengthLimit]}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Field
+                type="text"
+                name="definition"
+                placeholder="Add definition.."
+                component={renderField}
+                validate={[required, lengthLimit]}
+              />
+            </FormGroup>
+        </ModalBody>
+        <ModalFooter>
+          <Button
+            type="submit"
+            color="primary"
+          > 
+          Add New Buzzword</Button>
+        
+          <Button 
+            type="button" 
+            color="secondary" 
+            onClick={toggleModal}
+          >Cancel</Button>
 
-  clearForm = () => {
-    this.setState({
-      buzzword: '',
-      definition: '',
-      errorMessage: '',
-    });
-  }
+        </ModalFooter>
+        </Form> 
+      </Modal>
+    </div>
 
-  handleChange = (event) => {
-    if (event.target.value.length >= 140) {
-      this.setState({
-        errorMessage: "You have reached the 140 character limit",
-      });
-    } else {
-      this.setState({
-        [`${event.target.name}`]: event.target.value,
-        errorMessage: '',
-      })
-    }
-  }
+AddForm = reduxForm({
+  form: 'addForm' // a unique name for this form
+})(AddForm);
 
-  render() {
-
-    const { buzzword, definition, errorMessage, modalOpen } = this.state;
-
-    return (
-      <div className="text-center addWord">
-        <i className="fa fa-plus-square-o fa-4x text-success" onClick={this.toggleModal} />
-        <Modal
-          isOpen={modalOpen}
-          toggle={this.toggleModal}
-        >
-          <ModalBody>
-            <Form onSubmit={this.handleSubmit}>
-              <FormGroup>
-                <Input
-                  type="text"
-                  onChange={this.handleChange}
-                  name="buzzword"
-                  value={buzzword}
-                  placeholder="Add buzzword.."
-                />
-              </FormGroup>
-              <FormGroup>
-                <Input
-                  onChange={this.handleChange}
-                  type="textarea"
-                  name="definition"
-                  value={definition}
-                  placeholder="Add definition.."
-                />
-
-                {errorMessage 
-                  && <p className="text-danger">{errorMessage}</p>
-                }
-
-              </FormGroup>
-            </Form>
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              onClick={this.handleSubmit}
-              color="primary"
-              disabled={errorMessage
-               || !buzzword
-               || !definition
-               ? true : false }
-            > Add New Buzzword
-          </Button>
-            <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
-          </ModalFooter>
-        </Modal>
-      </div>
-    );
-  }
-}
+export default AddForm;

@@ -3,11 +3,27 @@ import { render } from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './db';
 import './styles.css';
+import App from './containers/app-container';
 
-import App from './app';
+// Redux
+import { createStore, applyMiddleware, compose } from 'redux';
+import { Provider } from 'react-redux';
+import reducer from './reducers/index';
+import thunk from 'redux-thunk';
+
+  const store = createStore(
+   reducer,
+   compose(
+    applyMiddleware(thunk),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+   )
+  );
+
 
 render(
-  <App />,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root')
 );
 

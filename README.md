@@ -10,6 +10,7 @@
  Library | What it does
 ------------ | -------------
 [React](https://facebook.github.io/react/) | Manages the view layer and responsible for all DOM manipulation
+[Redux](http://redux.js.org/) | Manages all domain and form state (Firebase and React component state)
 [Reactstrap](https://reactstrap.github.io/)  | Provides styles Bootstrap 4 components
 [Classnames](https://github.com/JedWatson/classnames)  | A simple javascript utility for conditionally joining classNames together
 [Firebase](https://firebase.google.com/) | Realtime NoSQL database used to store the persistant data.
