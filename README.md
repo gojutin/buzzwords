@@ -1,11 +1,11 @@
-#Buzzwords
+# Buzzwords
 
-###A demo flash card app using React bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+### A demo flash card app using React bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 #### This app is a demo for the `Intro to React` series by the [Long Island JavaScript Group Meetup](https://www.meetup.com/long-island-javascript-group/).
 
 
-####Main libraries used in this project:
+#### Main libraries used in this project:
 
  Library | What it does
 ------------ | -------------
@@ -16,11 +16,11 @@
 
 <h2 name="getting-started">Getting Started</h2>
 
-###**Step 1**
+### **Step 1**
 
 `git clone https://github.com/gojutin/buzzwords `
 
-###**Step 2**
+### **Step 2**
 
 Create a new Firebase database at [https://firebase.google.com/](https://firebase.google.com/).
 
@@ -28,7 +28,7 @@ In the Firebase Console, change the Firebase rules to `true` for the **".read"**
 
 Add your Firebase config object to `src/db.js`.
 
-###**Step 3**
+### **Step 3**
 
 `cd buzzwords `
 
