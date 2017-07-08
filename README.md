@@ -4,6 +4,8 @@
 
 #### This app is a demo for the `Intro to React` series by the [Long Island JavaScript Group Meetup](https://www.meetup.com/long-island-javascript-group/).
 
+##### You can also view the Redux branch [here](https://github.com/gojutin/buzzwords/tree/redux)
+
 
 #### Main libraries used in this project:
 
